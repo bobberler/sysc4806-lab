@@ -21,7 +21,7 @@ public class AddressBookController {
     }
 
     @DeleteMapping("/addressbook/{id}")
-    void deleteAddressBook(@PathVariable long id){
+    public void deleteAddressBook(@PathVariable long id){
         addressBookRepository.deleteById(id);
     }
 }
