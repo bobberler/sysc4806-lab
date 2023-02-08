@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 4</title>
+</head>
+<body>
+    <h1 th:text="'Address Book ' + ${id}" />
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone number </th>
+        </tr>
+        <th:block th:each="buddy : ${buds}">
+            <tr>
+                <td th:text="${buddy.id}" />
+                <td th:text="${buddy.name}" />
+                <td th:text="|${buddy.address}|" />
+                <td th:text="|${buddy.phoneNumber}|" />
+            </tr>
+        </th:block>
+    </table>
+</body>
+</html>
