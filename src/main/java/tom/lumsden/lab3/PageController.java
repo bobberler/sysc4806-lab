@@ -20,4 +20,10 @@ public class PageController {
 
         return "addressbook";
     }
+
+    @GetMapping("/page/add")
+    public String addBuddyPage(Model model){
+
+        return "addbuddyform";
+    }
 }

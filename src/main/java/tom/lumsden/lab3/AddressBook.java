@@ -16,7 +16,6 @@ public class AddressBook {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BuddyInfo> buds;
 
-
     public AddressBook(){
         buds = new ArrayList<>();
     }

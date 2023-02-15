@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 4</title>
+    <title>Address Book</title>
 </head>
 <body>
     <h1 th:text="'Address Book ' + ${id}" />
@@ -22,5 +22,10 @@
             </tr>
         </th:block>
     </table>
+    <form action="/page/add">
+        <p>
+            <input type="submit" value="Add buddy">
+        </p>
+    </form>
 </body>
 </html>

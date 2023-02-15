@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SPA Book</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+
+
+
+      $(document).ready(function(){
+
+        function setAddressBook(id){
+          $.ajax({
+            url: "/addressbook?id=" + id,
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function(ab){
+              //console.log(ab);
+              let tabledata = '';
+              $.each(ab.buds, function(index, value){
+                tabledata += '<tr>';
+                tabledata += '<td>' + value.id + '</td>';
+                tabledata += '<td>' + value.name + '</td>';
+                tabledata += '<td>' + value.address + '</td>';
+                tabledata += '<td>' + value.phoneNumber + '</td>';
+                tabledata += '</tr>';
+              });
+              $("#address_book_table tbody").append(tabledata);
+              $("#book_id").append(ab.id);
+            },
+            error: function(e){
+              console.log("error")
+            }
+          });
+        }
+
+
+        $(document).on("submit", "#add_buddy", function(e){
+          e.preventDefault();
+
+          let form = $(this);
+          let actionUrl = form.attr('action');
+          let bookId = $("#buddy_book_id").val();
+
+          $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(),
+            success: function(data){
+              $("#address_book_table tbody").empty();
+              $("#book_id").empty();
+              $("#book_id").append("Address Book ");
+              setAddressBook(bookId);
+            }
+          });
+          return false;
+        });
+
+
+        $(document).on("submit", "#change_address_book", function(e){
+          e.preventDefault()
+          let changeId = $("#book_change_id").val();
+          $("#address_book_table tbody").empty();
+          $("#book_id").empty();
+          $("#book_id").append("Address Book ");
+          setAddressBook(changeId);
+          return false;
+        });
+
+
+        setAddressBook(1);
+      });
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+  <h1 id="book_id">Address Book </h1>
+
+
+  <table id="address_book_table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone number </th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+
+  </table>
+
+  <form target="_blank" id="add_buddy" action="/buddyinfo/add" method="POST">
+    <p>
+      <label>Name: </label>
+      <input type="text" name="name">
+    </p>
+    <p>
+      <label>Address: </label>
+      <input type="text" name="address">
+    </p>
+    <p>
+      <label>Phone Number: </label>
+      <input type="text" name="phoneNumber">
+    </p>
+    <p>
+      <label>Address Book ID: </label>
+      <input type="text" name="bookId" id="buddy_book_id">
+    </p>
+
+    <p>
+      <input type="submit" value="Submit" />
+      <input type="reset" value="Reset" />
+    </p>
+  </form>
+
+  <br><br>
+
+  <form target="_blank" id="change_address_book" action="/addressbook" method="get">
+    <p>
+      <label>Address book ID: </label>
+      <input type="text" name="id" id="book_change_id">
+    </p>
+    <p>
+      <input type="submit" value="Submit">
+    </p>
+  </form>
+
+
+
+</body>
+</html>

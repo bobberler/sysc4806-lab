@@ -29,13 +29,13 @@ class Lab3ApplicationTests {
 
     @Test
     void addBuddy() throws Exception{
-        mockMvc.perform(get("/buddyinfo/add")
+        mockMvc.perform(post("/buddyinfo/add")
                 .param("name", "tom")
                 .param("address", "street")
                 .param("phoneNumber", "613")
                 .param("bookId", "1")).andExpect(status().isOk());
 
-        mockMvc.perform(get("/buddyinfo/add")
+        mockMvc.perform(post("/buddyinfo/add")
                 .param("name", "joe")
                 .param("address", "street")
                 .param("phoneNumber", "613")

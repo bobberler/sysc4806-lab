@@ -19,7 +19,7 @@ public class BuddyInfoController {
         return bud;
     }
 
-    @GetMapping("/buddyinfo/add")
+    @PostMapping("/buddyinfo/add")
     public BuddyInfo addBuddyFromGet(@RequestParam(value = "name") String name,
                                      @RequestParam(value="address") String address,
                                      @RequestParam(value="phoneNumber") String phoneNumber,
@@ -29,13 +29,14 @@ public class BuddyInfoController {
             AddressBook ab = addressBookRepository.findById(bookId);
             ab.addBuddy(bud);
             addressBookRepository.save(ab);
+
         }
         catch (Exception e){
             AddressBook ab = new AddressBook();
             ab.addBuddy(bud);
             addressBookRepository.save(ab);
         }
-        return buddyInfoRepository.save(bud);
+        return bud;
     }
 
 
