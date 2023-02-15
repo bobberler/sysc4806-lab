@@ -28,6 +28,11 @@ class Lab3ApplicationTests {
     }
 
     @Test
+    void SPA() throws Exception{
+        mockMvc.perform(get("/SPA")).andExpect(content().string(containsString("Address Book")));
+    }
+
+    @Test
     void addBuddy() throws Exception{
         mockMvc.perform(post("/buddyinfo/add")
                 .param("name", "tom")
