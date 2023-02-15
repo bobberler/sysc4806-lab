@@ -2,6 +2,7 @@ package tom.lumsden.lab3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @RestController
@@ -20,10 +21,10 @@ public class BuddyInfoController {
     }
 
     @PostMapping("/buddyinfo/add")
-    public BuddyInfo addBuddyFromGet(@RequestParam(value = "name") String name,
-                                     @RequestParam(value="address") String address,
-                                     @RequestParam(value="phoneNumber") String phoneNumber,
-                                     @RequestParam(value="bookId", defaultValue = "1") long bookId){
+    public RedirectView addBuddyFromGet(@RequestParam(value = "name") String name,
+                                        @RequestParam(value="address") String address,
+                                        @RequestParam(value="phoneNumber") String phoneNumber,
+                                        @RequestParam(value="bookId", defaultValue = "1") long bookId){
         BuddyInfo bud = new BuddyInfo(name, address, phoneNumber);
         try{
             AddressBook ab = addressBookRepository.findById(bookId);
@@ -36,7 +37,7 @@ public class BuddyInfoController {
             ab.addBuddy(bud);
             addressBookRepository.save(ab);
         }
-        return bud;
+        return new RedirectView("/page?id=" + bookId);
     }
 
 
