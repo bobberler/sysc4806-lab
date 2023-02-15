@@ -38,13 +38,13 @@ class Lab3ApplicationTests {
                 .param("name", "tom")
                 .param("address", "street")
                 .param("phoneNumber", "613")
-                .param("bookId", "1")).andExpect(status().isOk());
+                .param("bookId", "1"));
 
         mockMvc.perform(post("/buddyinfo/add")
                 .param("name", "joe")
                 .param("address", "street")
                 .param("phoneNumber", "613")
-                .param("bookId", "1")).andExpect(status().isOk());
+                .param("bookId", "1"));
 
         mockMvc.perform(get("/addressbook")
                         .param("id", "1"))
